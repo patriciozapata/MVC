@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="mvcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cstate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="userr">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="correo" Type="varchar" MaxLength="50" />
+    <Property Name="passsword" Type="varchar" MaxLength="50" />
+    <Property Name="idstate" Type="int" />
+  </EntityType>
+  <Association Name="FK_userr_userr">
+    <End Role="cstate" Type="Self.cstate" Multiplicity="0..1" />
+    <End Role="userr" Type="Self.userr" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cstate">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="userr">
+        <PropertyRef Name="idstate" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="mvcModelStoreContainer">
+    <EntitySet Name="cstate" EntityType="Self.cstate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userr" EntityType="Self.userr" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_userr_userr" Association="Self.FK_userr_userr">
+      <End Role="cstate" EntitySet="cstate" />
+      <End Role="userr" EntitySet="userr" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

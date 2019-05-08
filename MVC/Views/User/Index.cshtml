@@ -1,0 +1,55 @@
+﻿@model List<MVC.Models.TableViewModels.UserTableViewModels>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="row">
+    <div class="col-lg-12">
+            <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/User/Add")'" value="Agregar"/>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Opciones</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Correo</td>
+                    <td>
+                        <input  onclick="Delete(@item.Id)" type="button" value="Eliminar" class="btn btn-danger"/>
+                        <input onclick="document.location.href='@Url.Content("~/User/Edit/"+item.Id)'" type="button" value="Editar" class="btn btn-default" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<script>
+    function Delete(id) {
+    
+        if (confirm("Estas de acuerdo con eliminar ")) {
+
+        
+        url = "@Url.Content("~/User/Delete")" +"/"+ id;
+
+        $.post(url, function (data) {
+            if (data == "1") {
+                document.location.href="@Url.Content("~/User/")"
+            }
+            else {
+                alert("Ocurrido un error ");
+            }
+        })
+        }
+    }
+</script>
